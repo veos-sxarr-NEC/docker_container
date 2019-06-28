@@ -1,13 +1,21 @@
-# Host machine setup
+# VEOS Docker (EXPERIMENTAL)
+SX-Aurora TSUBASA supports Docker containerisation.
+This document explains how to set up a host environment, how to create
+a Docker image with VE software stack, and how to execute a VE program
+on Docker using the image.
+
+Docker containerization is an experimental feature currently.
+
+## Host machine setup
 
 Please use CentOS 7.5 / RHEL 7.5 as host machine.  
 
 At first, please install the latest VEOS and related packages
 in your host machine.  
 
-## 1. Install Docker daemon
+### 1. Install Docker daemon
 
-### Cent OS 7.5
+#### Cent OS 7.5
 Edit /etc/yum.repos.d/CentOS-Base.repo to enable "base", "updates" and
 "extras" repository for packages required by Docker.
 
@@ -49,7 +57,7 @@ $ sudo yum install docker-ce
 
 Edit /etc/yum.repos.d/CentOS-Base.repo to disable "base", "updates" and "extras" repository.
 
-### RHEL 7.5
+#### RHEL 7.5
 Download the following RPM package files and install the packages.
 
     PyYAML-3.10-11.el7.x86_64.rpm
@@ -87,7 +95,7 @@ Download the following RPM package files and install the packages.
 $ sudo yum install *.rpm
 ~~~
 
-## 2. Make docker group and add your account
+### 2. Make docker group and add your account
 ~~~
 $ sudo groupadd docker
 $ sudo usermod -aG docker <name>
@@ -95,22 +103,22 @@ $ sudo usermod -aG docker <name>
 
 Please logout and login.
 
-## 3. Start docker service
+### 3. Start docker service
 ~~~
 $ sudo systemctl start docker
 $ sudo systemctl enable docker
 ~~~
 
-# Create a docker image
+## Create a docker image
 
-## 1. Get the docker image of CentOS.
+### 1. Get the docker image of CentOS.
 
 ~~~
 $ docker pull centos:7.5.1804
 $ docker images
 ~~~
 
-## 2. Build the docker image of VEOS
+### 2. Build the docker image of VEOS
 ~~~
 $ git clone https://github.com/veos-sxarr-NEC/docker_container.git
 $ cd docker_container.git
@@ -135,7 +143,7 @@ RUN		yum -y install yum-utils && \
 		yum -y install ....
 ~~~
 
-# Run an application in the docker container
+## Run an application in the docker container
 ~~~
 $ docker run --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v /opt/nec/ve/veos:/opt/nec/ve/veos:ro -v <path to host binary directry>:<path to container binary directry>:z -it <image ID> <path to binary in container>
 ~~~
@@ -145,7 +153,7 @@ For example,
 $ docker run --device=/dev/ve0:/dev/ve0 -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v /opt/nec/ve/veos:/opt/nec/ve/veos:ro -v ${HOME}:${HOME}:z -it veos:develop ${HOME}/binary
 ~~~
 
-# Appendix 1: docker run
+## Appendix 1: docker run
 make container from docker image  
 `$ docker run [-t, image name or image ID] command`  
 
@@ -163,7 +171,7 @@ option
 
 **--cap-add=[]** : Add Linux capabilities  
 
-# Appendix 2: docker command
+## Appendix 2: docker command
 **Exit container**
 `$ exit`  
 
@@ -205,7 +213,7 @@ option
 **make tar file from docker image**  
 `$ docker save "image ID" > "tar file name"`  
 
-# Appendix 3: docker related packages
+## Appendix 3: docker related packages
     Dep-Install PyYAML-3.10-11.el7.x86_64                                          @base
     Dep-Install atomic-registries-1:1.22.1-26.gitb507039.el7.centos.x86_64         @extras
     Dep-Install container-selinux-2:2.74-1.el7.noarch                              @extras
