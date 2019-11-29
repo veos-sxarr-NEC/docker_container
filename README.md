@@ -10,14 +10,14 @@ Docker containerization is an experimental feature currently.
 
 Please use CentOS 7.5 / RHEL 7.5 as host machine.  
 
-At first, please install the latest VEOS and related packages
-in your host machine.  
+At first, please install the latest VEOS and related packages in your host machine.  
 
 ### 1. Install Docker daemon
 
 #### Cent OS 7.5
 Edit /etc/yum.repos.d/CentOS-Base.repo to enable "base", "updates" and
 "extras" repository for packages required by Docker.
+
 
 ~~~
 [base]
@@ -47,12 +47,10 @@ gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 enabled=1
 ~~~
 
-Install Docker.
+Install docker
 
 ~~~
-$ sudo yum-config-manager --add-repo \
-    https://download.docker.com/linux/centos/docker-ce.repo
-$ sudo yum install docker-ce
+$ sudo yum install docker
 ~~~
 
 Edit /etc/yum.repos.d/CentOS-Base.repo to disable "base", "updates" and "extras" repository.
@@ -91,11 +89,16 @@ Download the following RPM package files and install the packages.
     setools-libs-3.3.8-4.el7.x86_64.rpm
     yajl-2.0.4-4.el7.x86_64.rpm
 
+Install rpm files
+
 ~~~
 $ sudo yum install *.rpm
 ~~~
 
 ### 2. Make docker group and add your account
+
+Make docker group and add your account.
+
 ~~~
 $ sudo groupadd docker
 $ sudo usermod -aG docker <name>
@@ -111,44 +114,36 @@ $ sudo systemctl enable docker
 
 ## Create a docker image
 
-### 1. Get the docker image of CentOS.
 
-~~~
-$ docker pull centos:7.5.1804
-$ docker images
-~~~
+Clone the repository on github.
 
-### 2. Build the docker image of VEOS
 ~~~
 $ git clone https://github.com/veos-sxarr-NEC/docker_container.git
-$ cd docker_container.git
-$ docker build . -t veos:develop
+$ cd docker_container
 ~~~
 
-If your network is behind a proxy, please prepare yum.conf with
-proxy setting and edit Dockerfile to use the proxy.
-You need to edit two lines in Dockerfile to use a proxy server.
-First, enable the following line
+Download TSUBASA-soft-release-2.0-1.noarch.rpm.
+
 ~~~
- ADD yum.conf /etc
+$ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.0-1.noarch.rpm
 ~~~
-by removing '#' in Dockerfile.  
-Second, add --httpproxy option to the rpm command on importing the GPG key of
-SX-Aurora TSUBASA software. For example, suppose that your proxy is
-proxy.example.com:
+
+Update "username" and "password" for "nec-sdk" for TSUBASA-restricted.repo.
+
+If your network is behind a proxy, please update yum.conf to set the proxy.
+
+Build a docker image.
+
 ~~~
-RUN		yum -y install yum-utils && \
-		...
-		rpm --import --httpproxy proxy.example.com https://www.nec.com/en/global/prod/hpc/aurora/ve-software/files/RPM-GPG-KEY-TSUBASA-soft && \
-		yum -y install ....
+$ docker build . -t veos:develop
 ~~~
 
 ## Run an application in the docker container
 ~~~
-$ docker run --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v /opt/nec/ve/veos:/opt/nec/ve/veos:ro -v <path to host binary directry>:<path to container binary directry>:z -it <image ID> <path to binary in container>
+$ docker run --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v /opt/nec/ve/veos:/opt/nec/ve/veos:ro -v <pass to host binary directry>:<pass to container binary directry>:z -it <image ID> <pass to binary in container>
 ~~~
 
-For example,
+for example  
 ~~~
 $ docker run --device=/dev/ve0:/dev/ve0 -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v /opt/nec/ve/veos:/opt/nec/ve/veos:ro -v ${HOME}:${HOME}:z -it veos:develop ${HOME}/binary
 ~~~
