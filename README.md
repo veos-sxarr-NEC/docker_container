@@ -1,119 +1,15 @@
-# VEOS Docker (EXPERIMENTAL)
-SX-Aurora TSUBASA supports Docker containerisation.
-This document explains how to set up a host environment, how to create
-a Docker image with VE software stack, and how to execute a VE program
-on Docker using the image.
+# Dockerfile for SX-Aurora TSUBASA
 
-Docker containerization is an experimental feature currently.
+This repository has a Dockerfile to build docker image to execute a program on Vector Engine of SX-Aurora TSUBASA.
 
-## Host machine setup
+This document explains how to build a docker image with VEOS and related software, and how to execute a VE program on Docker using the image.
+Note users can not execute MPI program in a container built by this Dockerfile because NEC MPI will not be installed.
 
-Please use CentOS 7.5 / RHEL 7.5 as host machine.  
+We have tested the Dockerfile with the following version of Docker.
 
-At first, please install the latest VEOS and related packages in your host machine.  
-
-### 1. Install Docker daemon
-
-#### Cent OS 7.5
-Edit /etc/yum.repos.d/CentOS-Base.repo to enable "base", "updates" and
-"extras" repository for packages required by Docker.
-
-
-~~~
-[base]
-name=CentOS-$releasever - Base
-mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os&infra=$infra
-#baseurl=http://mirror.centos.org/centos/$releasever/os/$basearch/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-enabled=1
-
-#released updates
-[updates]
-name=CentOS-$releasever - Updates
-mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates&infra=$infra
-#baseurl=http://mirror.centos.org/centos/$releasever/updates/$basearch/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-enabled=1
-
-#additional packages that may be useful
-[extras]
-name=CentOS-$releasever - Extras
-mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras&infra=$infra
-#baseurl=http://mirror.centos.org/centos/$releasever/extras/$basearch/
-gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
-enabled=1
-~~~
-
-Install docker
-
-~~~
-$ sudo yum install docker
-~~~
-
-Edit /etc/yum.repos.d/CentOS-Base.repo to disable "base", "updates" and "extras" repository.
-
-#### RHEL 7.5
-Download the following RPM package files and install the packages.
-
-    PyYAML-3.10-11.el7.x86_64.rpm
-    atomic-registries-1.22.1-26.gitb507039.el7.x86_64.rpm
-    container-selinux-2.74-1.el7.noarch.rpm
-    container-storage-setup-0.11.0-2.git5eaf76c.el7.noarch.rpm
-    containers-common-0.1.31-8.gitb0b750d.el7.x86_64.rpm
-    docker-1.13.1-91.git07f3374.el7.x86_64.rpm
-    docker-client-1.13.1-91.git07f3374.el7.x86_64.rpm
-    docker-common-1.13.1-91.git07f3374.el7.x86_64.rpm
-    docker-rhel-push-plugin-1.13.1-91.git07f3374.el7.x86_64.rpm
-    libseccomp-2.3.1-3.el7.x86_64.rpm
-    libselinux-2.5-14.1.el7.x86_64.rpm
-    libselinux-python-2.5-14.1.el7.x86_64.rpm
-    libselinux-utils-2.5-14.1.el7.x86_64.rpm
-    libsemanage-2.5-14.el7.x86_64.rpm
-    libsemanage-python-2.5-14.el7.x86_64.rpm
-    libsepol-2.5-10.el7.x86_64.rpm
-    oci-register-machine-0-6.git2b44233.el7.x86_64.rpm
-    oci-systemd-hook-0.1.18-3.git8787307.el7_6.x86_64.rpm
-    oci-umount-2.3.4-2.git87f9237.el7.x86_64.rpm
-    policycoreutils-2.5-29.el7_6.1.x86_64.rpm
-    policycoreutils-python-2.5-29.el7_6.1.x86_64.rpm
-    python-backports-1.0-8.el7.x86_64.rpm
-    python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch.rpm
-    python-ipaddress-1.0.16-2.el7.noarch.rpm
-    python-pytoml-0.1.14-1.git7dea353.el7.noarch.rpm
-    python-setuptools-0.9.8-7.el7.noarch.rpm
-    selinux-policy-3.13.1-229.el7_6.9.noarch.rpm
-    selinux-policy-targeted-3.13.1-229.el7_6.9.noarch.rpm
-    setools-libs-3.3.8-4.el7.x86_64.rpm
-    yajl-2.0.4-4.el7.x86_64.rpm
-
-Install rpm files
-
-~~~
-$ sudo yum install *.rpm
-~~~
-
-### 2. Make docker group and add your account
-
-Make docker group and add your account.
-
-~~~
-$ sudo groupadd docker
-$ sudo usermod -aG docker <name>
-~~~
-
-Please logout and login.
-
-### 3. Start docker service
-~~~
-$ sudo systemctl start docker
-$ sudo systemctl enable docker
-~~~
+* docker-ce-19.03.5-3
 
 ## Create a docker image
-
 
 Clone the repository on github.
 
@@ -128,14 +24,14 @@ Download TSUBASA-soft-release-2.0-1.noarch.rpm.
 $ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.0-1.noarch.rpm
 ~~~
 
-Update "username" and "password" for "nec-sdk" for TSUBASA-restricted.repo.
+Update "username" and "password" for "nec-sdk" in TSUBASA-restricted.repo.
 
 If your network is behind a proxy, please update yum.conf to set the proxy.
 
 Build a docker image.
 
 ~~~
-$ docker build . -t veos:develop
+$ docker build . -t veos:latest
 ~~~
 
 ## Run an application in the docker container
@@ -145,7 +41,7 @@ $ docker run --device=<path to host ve device file>:<path to ve device file in c
 
 for example  
 ~~~
-$ docker run --device=/dev/ve0:/dev/ve0 -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v /opt/nec/ve/veos:/opt/nec/ve/veos:ro -v ${HOME}:${HOME}:z -it veos:develop ${HOME}/binary
+$ docker run --device=/dev/ve0:/dev/ve0 -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v /opt/nec/ve/veos:/opt/nec/ve/veos:ro -v ${HOME}:${HOME}:z -it veos:latest ${HOME}/binary
 ~~~
 
 ## Appendix 1: docker run
@@ -167,11 +63,7 @@ option
 **--cap-add=[]** : Add Linux capabilities  
 
 ## Appendix 2: docker command
-**Exit container**
-`$ exit`  
 
-*At host machine:*  
-  
 **List up docker image**  
 `$ docker images`  
 
@@ -207,46 +99,3 @@ option
 
 **make tar file from docker image**  
 `$ docker save "image ID" > "tar file name"`  
-
-## Appendix 3: docker related packages
-    Dep-Install PyYAML-3.10-11.el7.x86_64                                          @base
-    Dep-Install atomic-registries-1:1.22.1-26.gitb507039.el7.centos.x86_64         @extras
-    Dep-Install container-selinux-2:2.74-1.el7.noarch                              @extras
-    Dep-Install container-storage-setup-0.11.0-2.git5eaf76c.el7.noarch             @extras
-    Dep-Install containers-common-1:0.1.31-8.gitb0b750d.el7.centos.x86_64          @extras
-    Install     docker-2:1.13.1-91.git07f3374.el7.centos.x86_64                    @extras
-    Dep-Install docker-client-2:1.13.1-91.git07f3374.el7.centos.x86_64             @extras
-    Dep-Install docker-common-2:1.13.1-91.git07f3374.el7.centos.x86_64             @extras
-    Dep-Install libseccomp-2.3.1-3.el7.x86_64                                      @base
-    Updated     libselinux-2.5-12.el7.x86_64                                       @anaconda
-    Update                 2.5-14.1.el7.x86_64                                     @base
-    Updated     libselinux-python-2.5-12.el7.x86_64                                @anaconda
-    Update                        2.5-14.1.el7.x86_64                              @base
-    Updated     libselinux-utils-2.5-12.el7.x86_64                                 @anaconda
-    Update                       2.5-14.1.el7.x86_64                               @base
-    Updated     libsemanage-2.5-11.el7.x86_64                                      @anaconda
-    Update                  2.5-14.el7.x86_64                                      @base
-    Updated     libsemanage-python-2.5-11.el7.x86_64                               @c7-media
-    Update                         2.5-14.el7.x86_64                               @base
-    Updated     libsepol-2.5-8.1.el7.x86_64                                        @anaconda
-    Update               2.5-10.el7.x86_64                                         @base
-    Dep-Install oci-register-machine-1:0-6.git2b44233.el7.x86_64                   @extras
-    Dep-Install oci-systemd-hook-1:0.1.18-3.git8787307.el7_6.x86_64                @extras
-    Dep-Install oci-umount-2:2.3.4-2.git87f9237.el7.x86_64                         @extras
-    Updated     policycoreutils-2.5-22.el7.x86_64                                  @anaconda
-    Update                      2.5-29.el7_6.1.x86_64                              @updates
-    Updated     policycoreutils-python-2.5-22.el7.x86_64                           @c7-media
-    Update                             2.5-29.el7_6.1.x86_64                       @updates
-    Dep-Install python-backports-1.0-8.el7.x86_64                                  @base
-    Dep-Install python-backports-ssl_match_hostname-3.5.0.1-1.el7.noarch           @base
-    Dep-Install python-ipaddress-1.0.16-2.el7.noarch                               @base
-    Dep-Install python-pytoml-0.1.14-1.git7dea353.el7.noarch                       @extras
-    Dep-Install python-setuptools-0.9.8-7.el7.noarch                               @base
-    Updated     selinux-policy-3.13.1-192.el7.noarch                               @anaconda
-    Update                     3.13.1-229.el7_6.9.noarch                           @updates
-    Updated     selinux-policy-targeted-3.13.1-192.el7.noarch                      @anaconda
-    Update                              3.13.1-229.el7_6.9.noarch                  @updates
-    Updated     setools-libs-3.3.8-2.el7.x86_64                                    @c7-media
-    Update                   3.3.8-4.el7.x86_64                                    @base
-    Dep-Install subscription-manager-rhsm-certificates-1.21.10-3.el7.centos.x86_64 @updates
-    Dep-Install yajl-2.0.4-4.el7.x86_64                                            @base
