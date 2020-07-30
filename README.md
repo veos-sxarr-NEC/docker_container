@@ -7,41 +7,40 @@ Note users can not execute MPI program in a container built by this Dockerfile b
 
 We have tested the Dockerfile with the following version of Docker.
 
-* docker-ce-19.03.5-3
+* docker-ce-19.03.12-3
 
-## Create a docker image
+## Build the docker image of VEOS
 
-Clone the repository on github.
+Clone the repository.
 
 ~~~
 $ git clone https://github.com/veos-sxarr-NEC/docker_container.git
-$ cd docker_container
+$ cd docker_container/RHEL`sed -r "s|.* release ([0-9]*)\.[0-9]*.*|\1|" /etc/redhat-release`
 ~~~
 
-Download TSUBASA-soft-release-2.0-1.noarch.rpm.
+Download TSUBASA-soft-release-2.2-1.noarch.rpm.
 
 ~~~
-$ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.0-1.noarch.rpm
+$ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.2-1.noarch.rpm
 ~~~
 
 Update "username" and "password" for "nec-sdk" in TSUBASA-restricted.repo.
 
-If your network is behind a proxy, please update yum.conf to set the proxy.
+If your network is behind a proxy, please update yum.conf/dnf.conf to set the proxy.
 
 Build a docker image.
-
 ~~~
 $ docker build . -t veos:latest
 ~~~
 
 ## Run an application in the docker container
 ~~~
-$ docker run --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v /opt/nec/ve/veos:/opt/nec/ve/veos:ro -v <pass to host binary directry>:<pass to container binary directry>:z -it <image ID> <pass to binary in container>
+$ docker run --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v <pass to host binary directry>:<pass to container binary directry>:z -it <image ID> <pass to binary in container>
 ~~~
 
-for example  
+For example, run container image with VE NODE#0
 ~~~
-$ docker run --device=/dev/ve0:/dev/ve0 -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v /opt/nec/ve/veos:/opt/nec/ve/veos:ro -v ${HOME}:${HOME}:z -it veos:latest ${HOME}/binary
+$ docker run --device=`readlink -f /dev/veslot0`:`readlink -f /dev/veslot0` -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v ${HOME}:${HOME}:z -it veos:develop ${HOME}/binary
 ~~~
 
 ## Appendix 1: docker run

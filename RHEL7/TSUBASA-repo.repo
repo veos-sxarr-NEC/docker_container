@@ -1,0 +1,7 @@
+[TSUBASA-repo]
+name=SX-TSUBASA open repository
+baseurl=https://www.hpc.nec/repos/TSUBASA-repo_el7.7
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
+gpgcheck=1
+enabled=1
+
