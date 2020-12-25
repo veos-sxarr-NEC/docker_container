@@ -29,8 +29,6 @@ Download TSUBASA-soft-release-2.3-1.noarch.rpm.
 $ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.3-1.noarch.rpm
 ~~~
 
-Update "username" and "password" for "nec-sdk" in TSUBASA-restricted.repo.
-
 If your network is behind a proxy, please update yum.conf/dnf.conf to set the proxy.
 
 Build a docker image.
