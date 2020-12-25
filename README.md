@@ -2,12 +2,12 @@
 
 This repository has a Dockerfile to build docker image to execute a program on Vector Engine of SX-Aurora TSUBASA.
 
-This document explains how to build a docker image with VEOS and related software, and how to execute a VE program on Docker using the image.
+This document explains how to build a docker image with VEOS and related software, and how to execute a VE application on Docker using the image.
 Note users can not execute MPI program in a container built by this Dockerfile because NEC MPI will not be installed.
 
 We have tested the Dockerfile with the following version of Docker.
 
-* docker-ce-19.03.12-3
+* docker-ce-19.03.13-3
 
 ## Build the docker image of VEOS
 
@@ -15,13 +15,18 @@ Clone the repository.
 
 ~~~
 $ git clone https://github.com/veos-sxarr-NEC/docker_container.git
-$ cd docker_container/RHEL`sed -r "s|.* release ([0-9]*)\.[0-9]*.*|\1|" /etc/redhat-release`
 ~~~
 
-Download TSUBASA-soft-release-2.2-1.noarch.rpm.
+Change the current directory to the directory which has Dockerfile.
 
 ~~~
-$ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.2-1.noarch.rpm
+$ cd docker_container/CentOS8.1
+~~~
+
+Download TSUBASA-soft-release-2.3-1.noarch.rpm.
+
+~~~
+$ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.3-1.noarch.rpm
 ~~~
 
 Update "username" and "password" for "nec-sdk" in TSUBASA-restricted.repo.
@@ -34,13 +39,16 @@ $ docker build . -t veos:latest
 ~~~
 
 ## Run an application in the docker container
+
+Run an application using the below command.
+
 ~~~
 $ docker run --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v <pass to host binary directry>:<pass to container binary directry>:z -it <image ID> <pass to binary in container>
 ~~~
 
 For example, run container image with VE NODE#0
 ~~~
-$ docker run --device=`readlink -f /dev/veslot0`:`readlink -f /dev/veslot0` -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v ${HOME}:${HOME}:z -it veos:develop ${HOME}/binary
+$ docker run --device=`readlink -f /dev/veslot0`:`readlink -f /dev/veslot0` -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v ${HOME}:${HOME}:z -it veos:latest ${HOME}/binary
 ~~~
 
 ## Appendix 1: docker run
