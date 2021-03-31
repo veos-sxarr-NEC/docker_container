@@ -7,7 +7,7 @@ Note users can not execute MPI program in a container built by this Dockerfile b
 
 We have tested the Dockerfile with the following version of Docker.
 
-* docker-ce-19.03.13-3
+* docker-ce-20.10.3-3
 
 ## Build the docker image of VEOS
 
@@ -20,7 +20,7 @@ $ git clone https://github.com/veos-sxarr-NEC/docker_container.git
 Change the current directory to the directory which has Dockerfile.
 
 ~~~
-$ cd docker_container/CentOS8.1
+$ cd docker_container/CentOS8.2
 ~~~
 
 Download TSUBASA-soft-release-2.3-1.noarch.rpm.
