@@ -20,7 +20,7 @@ $ git clone https://github.com/veos-sxarr-NEC/docker_container.git
 Change the current directory to the directory which has Dockerfile.
 
 ~~~
-$ cd docker_container/CentOS8.2
+$ cd docker_container/CentOS8
 ~~~
 
 Download TSUBASA-soft-release-2.3-1.noarch.rpm.
