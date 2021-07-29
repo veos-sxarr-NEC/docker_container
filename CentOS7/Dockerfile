@@ -1,7 +1,6 @@
 FROM		centos:7.9.2009
 MAINTAINER	NEC
 ADD		yum.conf /etc
-ADD		CentOS-Base.repo /etc/yum.repos.d
 ADD		TSUBASA-soft-release-*.noarch.rpm /tmp
 ADD		TSUBASA-repo.repo /tmp
 ADD		TSUBASA-restricted.repo /tmp

@@ -5,9 +5,21 @@ This repository has a Dockerfile to build docker image to execute a program on V
 This document explains how to build a docker image with VEOS and related software, and how to execute a VE application on Docker using the image.
 Note users can not execute MPI program in a container built by this Dockerfile because NEC MPI will not be installed.
 
+You can save and use the image as execution environment for your program.
+
 We have tested the Dockerfile with the following version of Docker.
 
-* docker-ce-20.10.3-3
+* docker-ce-20.10.7-3
+
+## Compatibility problems
+
+To avoid the compatibility problem, please consider the below points:
+
+* The compatibility of software between a host machine and a container.
+  * The version of VEOS in a host machine must be greater than or equal to the version of VEOS in a container.
+
+* The compatibility of software between a container and a build machine
+  * Each software version of NEC SDK in a container must be greater than or equal to each software version of NEC SDK in a build machine where you built your program.
 
 ## Build the docker image of VEOS
 
@@ -23,13 +35,11 @@ Change the current directory to the directory which has Dockerfile.
 $ cd docker_container/CentOS8
 ~~~
 
-Download TSUBASA-soft-release-2.3-1.noarch.rpm.
+Download TSUBASA-soft-release-2.4-1.noarch.rpm.
 
 ~~~
-$ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.3-1.noarch.rpm
+$ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.4-1.noarch.rpm
 ~~~
-
-If your network is behind a proxy, please update yum.conf/dnf.conf to set the proxy.
 
 Build a docker image.
 ~~~

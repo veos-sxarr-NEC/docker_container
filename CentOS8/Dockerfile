@@ -1,9 +1,6 @@
-FROM            centos:8.2.2004
+FROM            centos:8.3.2011
 MAINTAINER      NEC
 ADD             dnf.conf /etc/dnf
-ADD             CentOS-Base.repo /etc/yum.repos.d
-ADD             CentOS-Extras.repo /etc/yum.repos.d
-ADD             CentOS-AppStream.repo /etc/yum.repos.d
 ADD             TSUBASA-soft-release-*.noarch.rpm /tmp
 ADD             TSUBASA-repo.repo /tmp
 ADD             TSUBASA-restricted.repo /tmp

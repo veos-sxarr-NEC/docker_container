@@ -18,7 +18,7 @@ enabled=0
 
 [scatefs]
 name=ScaTeFS
-baseurl=https://www.hpc.nec/repos/restricted/scatefs/scatefs_el8.1
+baseurl=https://www.hpc.nec/repos/restricted/scatefs/scatefs_el8.3
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
 gpgcheck=1
 username=
