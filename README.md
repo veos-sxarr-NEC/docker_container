@@ -9,7 +9,7 @@ You can save and use the image as execution environment for your program.
 
 We have tested the Dockerfile with the following version of Docker.
 
-* docker-ce-20.10.7-3
+* docker-ce-20.10.10-3
 
 ## Compatibility problems
 
@@ -35,10 +35,10 @@ Change the current directory to the directory which has Dockerfile.
 $ cd docker_container/CentOS8
 ~~~
 
-Download TSUBASA-soft-release-2.4-1.noarch.rpm.
+Download TSUBASA-soft-release-2.6-1.noarch.rpm.
 
 ~~~
-$ curl -O https://www.hpc.nec/repos/TSUBASA-soft-release-2.4-1.noarch.rpm
+$ curl -O https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-soft-release-2.6-1.noarch.rpm
 ~~~
 
 Build a docker image.

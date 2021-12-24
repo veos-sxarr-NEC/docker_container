@@ -1,6 +1,6 @@
 [nec-sdk]
 name=NEC SDK
-baseurl=https://www.hpc.nec/repos/restricted/sdk/sdk_el7
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/sdk/sdk_el7
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
 gpgcheck=1
 username=
@@ -9,7 +9,7 @@ enabled=0
 
 [nec-mpi]
 name=NEC MPI
-baseurl=https://www.hpc.nec/repos/restricted/mpi/mpi_el7
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/mpi/mpi_el7
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
 gpgcheck=1
 username=
@@ -18,7 +18,7 @@ enabled=0
 
 [scatefs]
 name=ScaTeFS
-baseurl=https://www.hpc.nec/repos/restricted/scatefs/scatefs_el7.7
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/scatefs/scatefs_el7.9
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
 gpgcheck=1
 username=
@@ -27,10 +27,9 @@ enabled=0
 
 [nqsv]
 name=NQSV
-baseurl=https://www.hpc.nec/repos/restricted/nqsv/nqsv_el7
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/nqsv/nqsv_el7
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
 gpgcheck=1
 username=
 password=
 enabled=0
-
