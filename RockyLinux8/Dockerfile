@@ -1,4 +1,4 @@
-FROM            centos:8.4.2105
+FROM            rockylinux:8.5
 MAINTAINER      NEC
 ADD             dnf.conf /etc/dnf
 ADD             TSUBASA-soft-release-*.noarch.rpm /tmp

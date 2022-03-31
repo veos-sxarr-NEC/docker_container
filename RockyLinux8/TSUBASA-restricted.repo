@@ -18,7 +18,7 @@ enabled=0
 
 [scatefs]
 name=ScaTeFS
-baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/scatefs/scatefs_el8.4
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/scatefs/scatefs_el8.5
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
 gpgcheck=1
 username=

@@ -9,7 +9,7 @@ You can save and use the image as execution environment for your program.
 
 We have tested the Dockerfile with the following version of Docker.
 
-* docker-ce-20.10.10-3
+* docker-ce-20.10.12-3
 
 ## Compatibility problems
 
@@ -32,14 +32,16 @@ $ git clone https://github.com/veos-sxarr-NEC/docker_container.git
 Change the current directory to the directory which has Dockerfile.
 
 ~~~
-$ cd docker_container/CentOS8
+$ cd docker_container/RockyLinux8
 ~~~
 
-Download TSUBASA-soft-release-2.6-1.noarch.rpm.
+Download TSUBASA-soft-release-2.7-1.noarch.rpm.
+
 
 ~~~
-$ curl -O https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-soft-release-2.6-1.noarch.rpm
+$ curl -O https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-soft-release-2.7-1.noarch.rpm
 ~~~
+
 
 Build a docker image.
 ~~~
@@ -112,5 +114,8 @@ option
 **Into a running container**  
 `$ docker exec -it <container ID> /bin/bash`  
 
-**make tar file from docker image**  
+**Make tar file from a docker image**  
 `$ docker save "image ID" > "tar file name"`  
+
+**Load a docker image from a tar file**  
+`$ docker load < "tar file name"`  
