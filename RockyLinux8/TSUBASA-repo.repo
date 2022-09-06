@@ -1,6 +1,6 @@
 [TSUBASA-repo]
 name=SX-Aurora TSUBASA open repository
-baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-repo_el8.5
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-repo_el8.6
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
 gpgcheck=1
 enabled=1
