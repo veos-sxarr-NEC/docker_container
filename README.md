@@ -9,7 +9,7 @@ You can save and use the image as execution environment for your program.
 
 We have tested the Dockerfile with the following version of Docker.
 
-* docker-ce-20.10.23-3
+* docker-ce-23.0.6-1
 
 ## Compatibility problems
 
