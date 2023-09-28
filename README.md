@@ -9,7 +9,7 @@ You can save and use the image as execution environment for your program.
 
 We have tested the Dockerfile with the following version of Docker.
 
-* docker-ce-23.0.6-1
+* docker-ce-24.0.5-1
 
 ## Compatibility problems
 
@@ -35,11 +35,11 @@ Change the current directory to the directory which has Dockerfile.
 $ cd docker_container/RockyLinux8
 ~~~
 
-Download TSUBASA-soft-release-2.8-1.noarch.rpm.
+Download TSUBASA-soft-release-ve1-3.0-1.noarch.rpm.
 
 
 ~~~
-$ curl -O https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-soft-release-2.8-1.noarch.rpm
+$ curl -O https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-soft-release-ve1-3.0-1.noarch.rpm
 ~~~
 
 Build a docker image.
