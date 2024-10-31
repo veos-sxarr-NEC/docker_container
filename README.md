@@ -9,7 +9,7 @@ You can save and use the image as execution environment for your program.
 
 We have tested the Dockerfile with the following version of Docker.
 
-* docker-ce-24.0.5-1
+* docker-ce-26.1.3-1
 
 ## Compatibility problems
 
@@ -52,12 +52,12 @@ $ docker build . -t veos:latest
 Run an application using the below command.
 
 ~~~
-$ docker run --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v <pass to host binary directry>:<pass to container binary directry>:z -it <image ID> <pass to binary in container>
+$ docker run -u `id -u`:`id -g` --ulimit memlock=-1 --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v <pass to host binary directry>:<pass to container binary directry>:z -it <image ID> <pass to binary in container>
 ~~~
 
 For example, run container image with VE NODE#0
 ~~~
-$ docker run --device=`readlink -f /dev/veslot0`:`readlink -f /dev/veslot0` -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v ${HOME}:${HOME}:z -it veos:latest ${HOME}/binary
+$ docker run -u `id -u`:`id -g` --ulimit memlock=-1 --device=`readlink -f /dev/veslot0`:`readlink -f /dev/veslot0` -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v ${HOME}:${HOME}:z -it veos:latest ${HOME}/binary
 ~~~
 
 ## Appendix 1: docker run
