@@ -9,7 +9,11 @@ You can save and use the image as execution environment for your program.
 
 We have tested the Dockerfile with the following version of Docker.
 
+RHEL 8.10 
 * docker-ce-26.1.3-1
+
+RHEL 10.0
+* docker-ce-28.5.1-1
 
 ## Compatibility problems
 
@@ -29,20 +33,20 @@ Clone the repository.
 $ git clone https://github.com/veos-sxarr-NEC/docker_container.git
 ~~~
 
-Change the current directory to the directory which has Dockerfile.
+There are directories containing Dockerfiles and necessary files to create images for specific operating systems. Change the current directory to the directory for the desired operating system.  For example: docker_container/RockeyLinux10.
 
 ~~~
-$ cd docker_container/RockyLinux8
+$ cd docker_container/RockyLinux10
 ~~~
 
-Download TSUBASA-soft-release-ve1-3.0-1.noarch.rpm.
-
+Download TSUBASA-soft-release-ve1-3.1-2.noarch.rpm
 
 ~~~
-$ curl -O https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-soft-release-ve1-3.0-1.noarch.rpm
+$ curl -O https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-soft-release-ve1-3.1-2.noarch.rpm
 ~~~
 
 Build a docker image.
+
 ~~~
 $ docker build . -t veos:latest
 ~~~
@@ -51,6 +55,7 @@ $ docker build . -t veos:latest
 
 Run an application using the below command.
 
+### For RHEL8.10
 ~~~
 $ docker run -u `id -u`:`id -g` --ulimit memlock=-1 --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v <pass to host binary directry>:<pass to container binary directry>:z -it <image ID> <pass to binary in container>
 ~~~
@@ -58,6 +63,16 @@ $ docker run -u `id -u`:`id -g` --ulimit memlock=-1 --device=<path to host ve de
 For example, run container image with VE NODE#0
 ~~~
 $ docker run -u `id -u`:`id -g` --ulimit memlock=-1 --device=`readlink -f /dev/veslot0`:`readlink -f /dev/veslot0` -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v ${HOME}:${HOME}:z -it veos:latest ${HOME}/binary
+~~~
+
+### For RHEL10.0
+~~~
+$ docker run -u `id -u`:`id -g` --cap-add=IPC_LOCK --device=<path to host ve device file>:<path to ve device file in container> -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v <pass to host binary directry>:<pass to container binary directry>:z -it <image ID> <pass to binary in container>
+~~~
+
+For example, run container image with VE NODE#0
+~~~
+$ docker run -u `id -u`:`id -g` --cap-add=IPC_LOCK --device=`readlink -f /dev/veslot0`:`readlink -f /dev/veslot0` -v /dev:/dev:z -v /var/opt/nec/ve/veos:/var/opt/nec/ve/veos:z -v ${HOME}:${HOME}:z -it veos:latest ${HOME}/binary
 ~~~
 
 ## Appendix 1: docker run
@@ -76,7 +91,7 @@ option
 
 **--privileged** : Give extended privileges to this container  
 
-**--cap-add=[]** : Add Linux capabilities  
+**--cap-add=[]** : Add Linux capabilities. When running the VEO,VEDA program, add the option --cap-add=IPC_LOCK 
 
 ## Appendix 2: docker command
 

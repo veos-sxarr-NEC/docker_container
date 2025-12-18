@@ -2,6 +2,7 @@
 name=SX-Aurora TSUBASA open repository
 baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/TSUBASA-repo_el8.10
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft-RSA4096
 gpgcheck=1
 enabled=1
 
@@ -9,6 +10,7 @@ enabled=1
 name=NEC SDK runtime
 baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/runtime/sdk/sdk_el8
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft-RSA4096
 gpgcheck=1
 enabled=1
 
@@ -16,6 +18,7 @@ enabled=1
 name=NEC MPI runtime
 baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/runtime/mpi/mpi_el8
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft-RSA4096
 gpgcheck=1
 enabled=1
 
@@ -23,6 +26,7 @@ enabled=1
 name=NEC SDK community
 baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/community/sdk/sdk_el8
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft-RSA4096
 gpgcheck=1
 enabled=0
 
@@ -30,5 +34,6 @@ enabled=0
 name=NEC MPI community
 baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/community/mpi/mpi_el8
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft
+       file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft-RSA4096
 gpgcheck=1
 enabled=0

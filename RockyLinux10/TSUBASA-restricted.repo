@@ -1,0 +1,35 @@
+[nec-sdk]
+name=NEC SDK
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/sdk/sdk_el10
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft-RSA4096
+gpgcheck=1
+username=
+password=
+enabled=0
+
+[nec-mpi]
+name=NEC MPI
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/mpi/mpi_el10
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft-RSA4096
+gpgcheck=1
+username=
+password=
+enabled=0
+
+[scatefs]
+name=ScaTeFS
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/scatefs/scatefs_el10.0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft-RSA4096
+gpgcheck=1
+username=
+password=
+enabled=0
+
+[nqsv]
+name=NQSV
+baseurl=https://sxauroratsubasa.sakura.ne.jp/repos/restricted/nqsv/nqsv_el10
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-TSUBASA-soft-RSA4096
+gpgcheck=1
+username=
+password=
+enabled=0
